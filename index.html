@@ -11,26 +11,24 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
     theme: {
       extend: {
         colors: {
-          terracota: { DEFAULT: '#C1784F', dark: '#8F5636', light: '#D99B72' },
-          salvia: { DEFAULT: '#7C8B6F', dark: '#556349', light: '#9BA88E' },
-          crema: { DEFAULT: '#F6EEE1', dark: '#EDE1CC', darker: '#E4D5B8' },
-          rosaempolvado: { DEFAULT: '#D8A9A0', dark: '#C68E83' },
-          tinta: '#3A342C'
+          terracota: { DEFAULT: '#B0602F', dark: '#7C3F1E', light: '#CE8354' },
+          salvia: { DEFAULT: '#5F6E4C', dark: '#404B32', light: '#8A9873' },
+          crema: { DEFAULT: '#F3ECDC', dark: '#E8DCC3', darker: '#DBC9A3' },
+          papel: '#FBF7ED',
+          tinta: '#2E2A22',
+          mostaza: { DEFAULT: '#C79A3E', dark: '#9C7729' }
         },
         fontFamily: {
-          script: ['Parisienne', 'cursive'],
           serif: ['Cormorant', 'serif'],
+          serifsc: ['"Cormorant SC"', 'serif'],
           sans: ['Nunito Sans', 'sans-serif']
-        },
-        borderRadius: {
-          organic: '255px 15px 225px 15px / 15px 225px 15px 255px'
         }
       }
     }
@@ -39,31 +37,34 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/14.2.0/swiper-bundle.min.css">
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: 'Nunito Sans', sans-serif; background-color: #F6EEE1; color: #3A342C; }
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #FBF7ED;
+    color: #2E2A22;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(176,96,47,0.05), transparent 45%),
+      radial-gradient(circle at 85% 22%, rgba(95,110,76,0.045), transparent 40%);
+  }
   h1, h2, h3, .heading-serif { font-family: 'Cormorant', serif; }
-  .script { font-family: 'Parisienne', cursive; }
+  .serif-sc { font-family: 'Cormorant SC', serif; letter-spacing: 0.14em; }
 
-  section[id] {
-    scroll-margin-top: 88px;
-  }
-  section#inicio {
-    scroll-margin-top: 0;
-  }
+  section[id] { scroll-margin-top: 84px; }
+  section#inicio { scroll-margin-top: 0; }
   @media (min-width: 768px) {
-    section[id] { scroll-margin-top: 96px; }
+    section[id] { scroll-margin-top: 92px; }
     section#inicio { scroll-margin-top: 0; }
   }
 
-  p, .prose-measure { max-width: 68ch; }
+  p, .prose-measure { max-width: 66ch; }
 
   .reveal {
     opacity: 0;
-    transform: translateY(18px) scale(0.97) rotate(-0.5deg);
+    transform: translateY(16px);
   }
 
   .header-solid {
-    background-color: rgba(246, 238, 225, 0.97);
-    box-shadow: 0 2px 18px rgba(58, 52, 44, 0.06);
+    background-color: rgba(251, 247, 237, 0.96);
+    box-shadow: 0 1px 0 rgba(46,42,34,0.08);
   }
 
   @media (hover: hover) {
@@ -71,22 +72,53 @@
     .link-underline::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 1.5px;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
       background-color: currentColor;
       transition: width 220ms ease-out;
     }
     .link-underline:hover::after { width: 100%; }
 
-    .btn-hover:hover { background-color: #74432A; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(58,52,44,0.1); }
-    .gallery-item:hover img { transform: scale(1.06); }
+    .btn-hover:hover { background-color: #5C2E15; }
+    .btn-hover-salvia:hover { background-color: #2F3722; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(46,42,34,0.10); }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .specimen:hover .specimen-frame { border-color: #B0602F; }
   }
 
   .btn-press:active { transform: scale(0.97); }
 
-  .card-hover, .gallery-item img {
-    transition: transform 280ms ease-out, box-shadow 280ms ease-out;
+  .card-hover, .gallery-item img, .specimen-frame {
+    transition: transform 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out;
+  }
+
+  /* Herbarium specimen frame: pressed-plate mount look */
+  .specimen-frame {
+    position: relative;
+    border: 1px solid rgba(46,42,34,0.16);
+    padding: 6px;
+    background: #FBF7ED;
+  }
+  .specimen-frame::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(46,42,34,0.10);
+    pointer-events: none;
+  }
+
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.18  0 0 0 0 0.16  0 0 0 0 0.13  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
   }
 
   .faq-panel {
@@ -107,31 +139,48 @@
   .mobile-menu.open { opacity: 1; visibility: visible; }
   .mobile-menu-item {
     transition: transform 320ms ease-out, opacity 320ms ease-out;
-    transform: translateY(14px);
+    transform: translateY(12px);
     opacity: 0;
   }
   .mobile-menu.open .mobile-menu-item { transform: translateY(0); opacity: 1; }
 
   .focus-ring:focus-visible {
-    outline: 2px solid #C1784F;
+    outline: 2px solid #B0602F;
     outline-offset: 3px;
   }
 
   .lightbox { transition: opacity 240ms ease-out; }
 
   input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea {
-    background-color: #FFFCF7;
+    background-color: #FBF7ED;
   }
-  input::placeholder, textarea::placeholder { color: #A9A08D; }
+  input::placeholder, textarea::placeholder { color: #8C8371; }
 
-  .swiper-pagination-bullet { background-color: #C1784F !important; opacity: 0.35; }
+  .swiper-pagination-bullet { background-color: #B0602F !important; opacity: 0.35; }
   .swiper-pagination-bullet-active { opacity: 1 !important; }
 
-  .countdown-frame {
-    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  ::selection { background-color: #C79A3E; color: #FBF7ED; }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: #F3ECDC; }
+  ::-webkit-scrollbar-thumb { background: #CE8354; border: 3px solid #F3ECDC; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #B0602F; }
+
+  .divider-sprig { color: #8A9873; }
+
+  .hairline { border-color: rgba(46,42,34,0.14); }
+
+  /* Herbarium sheet frame on hero */
+  .sheet-frame {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(251,247,237,0.55);
+    pointer-events: none;
+  }
+  @media (min-width: 768px) {
+    .sheet-frame { inset: 22px; }
   }
 
-  ::selection { background-color: #D8A9A0; color: #3A342C; }
+  .cd-num { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body class="antialiased overflow-x-hidden">
@@ -140,7 +189,7 @@
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
   <nav class="flex items-center justify-between px-5 md:px-10 py-3 md:py-4" aria-label="Navegación principal">
-    <a href="#inicio" class="script text-3xl md:text-4xl text-terracota-dark focus-ring rounded" aria-label="Inicio — Lucía y Álvaro">L &amp; A</a>
+    <a href="#inicio" class="serif-sc text-xl md:text-2xl text-terracota-dark focus-ring rounded" aria-label="Inicio — Lucía y Álvaro">L &amp; A</a>
 
     <ul class="hidden lg:flex items-center gap-8 heading-serif text-lg text-tinta">
       <li><a href="#inicio" class="link-underline focus-ring rounded">Inicio</a></li>
@@ -151,114 +200,130 @@
       <li><a href="#faq" class="link-underline focus-ring rounded">FAQ</a></li>
     </ul>
 
-    <a href="#rsvp" class="hidden lg:inline-block bg-terracota-dark btn-hover btn-press text-white font-sans font-semibold text-sm tracking-wide px-6 py-3 rounded-full transition-colors duration-200 focus-ring">
+    <a href="#rsvp" class="hidden lg:inline-flex items-center bg-terracota-dark btn-hover btn-press text-papel font-sans font-semibold text-sm tracking-wide px-6 py-3 transition-colors duration-200 focus-ring">
       Confirmar asistencia
     </a>
 
     <button id="menu-toggle" class="lg:hidden text-tinta focus-ring rounded p-2" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
-      <svg id="icon-burger" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      <svg id="icon-burger" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </nav>
 </header>
 
-<div id="mobile-menu" class="mobile-menu closed fixed inset-0 z-40 bg-crema flex flex-col items-center justify-center gap-8 lg:hidden" aria-hidden="true">
+<div id="mobile-menu" class="mobile-menu closed fixed inset-0 z-40 bg-papel flex flex-col items-center justify-center gap-7 lg:hidden" aria-hidden="true">
   <a href="#inicio" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">Inicio</a>
   <a href="#historia" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">Nuestra historia</a>
   <a href="#boda" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">La boda</a>
   <a href="#galeria" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">Galería</a>
   <a href="#invitados" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">Info para invitados</a>
   <a href="#faq" class="mobile-menu-item heading-serif text-2xl text-tinta focus-ring rounded">FAQ</a>
-  <a href="#rsvp" class="mobile-menu-item bg-terracota-dark text-white font-sans font-semibold px-8 py-4 rounded-full mt-2 focus-ring min-h-[44px] flex items-center">Confirmar asistencia</a>
+  <a href="#rsvp" class="mobile-menu-item bg-terracota-dark text-papel font-sans font-semibold px-8 py-4 mt-2 focus-ring min-h-[44px] flex items-center">Confirmar asistencia</a>
 </div>
 
 <main id="contenido">
 
 <section id="inicio" class="relative min-h-[100svh] flex items-end md:items-center justify-center overflow-hidden">
   <img src="img/hero.webp" alt="Luz dorada de atardecer entre campos y olivos cerca de Ronda, Málaga" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high">
-  <div class="absolute inset-0 bg-gradient-to-b from-tinta/55 via-tinta/25 to-tinta/60"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-tinta/60 via-tinta/30 to-tinta/65"></div>
+  <div class="sheet-frame"></div>
 
-  <div class="relative z-10 text-center px-6 pb-20 md:pb-0 max-w-3xl mx-auto">
-    <p class="heading-serif italic text-crema text-base md:text-lg tracking-[0.2em] uppercase mb-4" style="text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Nos casamos</p>
-    <h1 class="script text-white text-6xl sm:text-7xl md:text-8xl leading-none" style="text-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.7);">Lucía &amp; Álvaro</h1>
-    <p class="heading-serif text-white text-xl md:text-2xl mt-5" style="text-shadow: 0 2px 10px rgba(0,0,0,0.6);">12 de diciembre de 2027 · Ronda, Málaga</p>
-    <p class="font-sans text-crema text-sm md:text-base mt-3 max-w-md mx-auto" style="text-shadow: 0 1px 8px rgba(0,0,0,0.65);">Al atardecer, en el campo, rodeados de quienes más queremos.</p>
+  <div class="relative z-10 text-center px-6 pb-24 md:pb-0 max-w-2xl mx-auto">
+    <svg width="34" height="20" viewBox="0 0 52 30" fill="none" class="mx-auto mb-5 text-crema/90" aria-hidden="true">
+      <path d="M26 28C26 28 10 22 10 10C10 4 15 2 18 6C20 9 18 14 14 15" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M26 28C26 28 42 22 42 10C42 4 37 2 34 6C32 9 34 14 38 15" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <ellipse cx="26" cy="27" rx="2" ry="1.4" fill="currentColor"/>
+    </svg>
+    <p class="serif-sc text-crema text-xs md:text-sm mb-5" style="text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Nos casamos</p>
+    <h1 class="heading-serif italic font-medium text-white text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.7);">Lucía &amp; Álvaro</h1>
 
-    <div id="countdown" class="countdown-frame mt-10 inline-flex gap-4 sm:gap-6 bg-white/12 backdrop-blur-[2px] border border-white/25 px-6 py-5 sm:px-10 sm:py-6" data-tilt data-tilt-max="6" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="text-center">
-        <span id="cd-days" class="block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
-        <span class="block text-[11px] sm:text-xs uppercase tracking-widest text-crema/80 mt-1">días</span>
+    <div class="flex items-center justify-center gap-3 mt-6" style="text-shadow: 0 2px 10px rgba(0,0,0,0.6);">
+      <span class="h-px w-8 bg-crema/50"></span>
+      <p class="heading-serif text-white text-lg md:text-xl">12 de diciembre de 2027 · Ronda, Málaga</p>
+      <span class="h-px w-8 bg-crema/50"></span>
+    </div>
+    <p class="font-sans text-crema/90 text-sm md:text-base mt-4 max-w-md mx-auto" style="text-shadow: 0 1px 8px rgba(0,0,0,0.65);">Al atardecer, en el campo, rodeados de quienes más queremos.</p>
+
+    <div id="countdown" class="mt-10 inline-flex gap-0 border border-crema/35 bg-tinta/20">
+      <div class="text-center px-4 py-4 sm:px-7 sm:py-5 border-r border-crema/25">
+        <span id="cd-days" class="cd-num block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
+        <span class="serif-sc block text-[10px] sm:text-[11px] text-crema/75 mt-1.5">Días</span>
       </div>
-      <div class="w-px bg-white/25"></div>
-      <div class="text-center">
-        <span id="cd-hours" class="block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
-        <span class="block text-[11px] sm:text-xs uppercase tracking-widest text-crema/80 mt-1">horas</span>
+      <div class="text-center px-4 py-4 sm:px-7 sm:py-5 border-r border-crema/25">
+        <span id="cd-hours" class="cd-num block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
+        <span class="serif-sc block text-[10px] sm:text-[11px] text-crema/75 mt-1.5">Horas</span>
       </div>
-      <div class="w-px bg-white/25"></div>
-      <div class="text-center">
-        <span id="cd-mins" class="block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
-        <span class="block text-[11px] sm:text-xs uppercase tracking-widest text-crema/80 mt-1">min</span>
+      <div class="text-center px-4 py-4 sm:px-7 sm:py-5 border-r border-crema/25">
+        <span id="cd-mins" class="cd-num block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
+        <span class="serif-sc block text-[10px] sm:text-[11px] text-crema/75 mt-1.5">Min</span>
       </div>
-      <div class="w-px bg-white/25"></div>
-      <div class="text-center">
-        <span id="cd-secs" class="block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
-        <span class="block text-[11px] sm:text-xs uppercase tracking-widest text-crema/80 mt-1">seg</span>
+      <div class="text-center px-4 py-4 sm:px-7 sm:py-5">
+        <span id="cd-secs" class="cd-num block heading-serif text-3xl sm:text-4xl text-white font-medium">00</span>
+        <span class="serif-sc block text-[10px] sm:text-[11px] text-crema/75 mt-1.5">Seg</span>
       </div>
     </div>
   </div>
 
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden md:block" aria-hidden="true">
-    <svg width="20" height="32" viewBox="0 0 20 32" fill="none" class="text-white/80 animate-bounce" style="animation-duration: 2.2s;">
-      <rect x="1" y="1" width="18" height="30" rx="9" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="10" cy="9" r="2" fill="currentColor"/>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2" aria-hidden="true">
+    <span class="serif-sc text-crema/70 text-[10px]">Descubre más</span>
+    <svg width="16" height="26" viewBox="0 0 20 32" fill="none" class="text-crema/70 animate-bounce" style="animation-duration: 2.2s;">
+      <rect x="1" y="1" width="18" height="30" rx="9" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="10" cy="9" r="1.8" fill="currentColor"/>
     </svg>
   </div>
 </section>
 
-<section id="historia" class="py-20 md:py-28 px-6 md:px-10 bg-crema">
+<section id="historia" class="py-20 md:py-28 px-6 md:px-10 bg-papel paper-grain">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-14 md:mb-20 reveal">
-      <svg width="52" height="30" viewBox="0 0 52 30" fill="none" class="mx-auto mb-4 text-salvia" aria-hidden="true">
-        <path d="M26 28C26 28 10 22 10 10C10 4 15 2 18 6C20 9 18 14 14 15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-        <path d="M26 28C26 28 42 22 42 10C42 4 37 2 34 6C32 9 34 14 38 15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-        <ellipse cx="26" cy="27" rx="2.3" ry="1.6" fill="currentColor"/>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Cuaderno de campo</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">Nuestra historia</h2>
+      <svg width="46" height="16" viewBox="0 0 46 16" fill="none" class="mx-auto mt-4 divider-sprig" aria-hidden="true">
+        <path d="M0 8h16M46 8H30" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <path d="M23 14C23 14 16 11 16 6C16 3 19 2 20.5 4C21.5 5.5 20.5 7.5 18.5 8" stroke="currentColor" stroke-width="1"/>
+        <path d="M23 14C23 14 30 11 30 6C30 3 27 2 25.5 4C24.5 5.5 25.5 7.5 27.5 8" stroke="currentColor" stroke-width="1"/>
       </svg>
-      <h2 class="text-4xl md:text-5xl text-tinta">Nuestra historia</h2>
     </div>
 
     <div class="relative">
-      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-terracota/25" aria-hidden="true"></div>
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-terracota/20" aria-hidden="true"></div>
 
       <div class="space-y-16 md:space-y-24">
         <div class="reveal grid md:grid-cols-2 gap-6 md:gap-16 items-center">
           <div class="order-2 md:order-1 md:text-right">
-            <p class="heading-serif text-terracota text-xl mb-1">Primavera de 2019</p>
-            <h3 class="text-2xl md:text-3xl text-tinta mb-3">Un café que se alargó cuatro horas</h3>
+            <p class="serif-sc text-terracota-dark text-xs mb-2">Espécimen I · Primavera de 2019</p>
+            <h3 class="text-2xl md:text-3xl text-tinta italic mb-3">Un café que se alargó cuatro horas</h3>
             <p class="prose-measure md:ml-auto text-tinta/85 leading-relaxed">Nos conocimos en la boda de unos amigos comunes, sentados por casualidad en la misma mesa. Lo que iba a ser un café rápido al día siguiente se convirtió en una tarde entera hablando de todo y de nada.</p>
           </div>
-          <div class="order-1 md:order-2">
-            <img src="img/timeline-1.webp" loading="lazy" alt="Dos personas brindando con tazas de café humeante desde arriba" class="rounded-organic w-full h-64 md:h-72 object-cover shadow-sm">
+          <div class="order-1 md:order-2 specimen">
+            <div class="specimen-frame">
+              <img src="img/timeline-1.webp" loading="lazy" alt="Dos personas brindando con tazas de café humeante desde arriba" class="w-full h-64 md:h-72 object-cover">
+            </div>
           </div>
         </div>
 
         <div class="reveal grid md:grid-cols-2 gap-6 md:gap-16 items-center">
-          <div>
-            <img src="img/timeline-2.webp" loading="lazy" alt="Amanecer dorado sobre una cadena de montañas envueltas en niebla" class="rounded-organic w-full h-64 md:h-72 object-cover shadow-sm">
+          <div class="specimen">
+            <div class="specimen-frame">
+              <img src="img/timeline-2.webp" loading="lazy" alt="Amanecer dorado sobre una cadena de montañas envueltas en niebla" class="w-full h-64 md:h-72 object-cover">
+            </div>
           </div>
           <div>
-            <p class="heading-serif text-terracota text-xl mb-1">Verano de 2022</p>
-            <h3 class="text-2xl md:text-3xl text-tinta mb-3">Tres semanas recorriendo el sur</h3>
+            <p class="serif-sc text-terracota-dark text-xs mb-2">Espécimen II · Verano de 2022</p>
+            <h3 class="text-2xl md:text-3xl text-tinta italic mb-3">Tres semanas recorriendo el sur</h3>
             <p class="prose-measure text-tinta/85 leading-relaxed">Un viaje sin planes fijos por pueblos blancos y carreteras de montaña nos confirmó lo que ya sabíamos: nos gusta perdernos juntos. Fue en una de esas noches, bajo un cielo lleno de estrellas, cuando hablamos por primera vez de pasar la vida entera así.</p>
           </div>
         </div>
 
         <div class="reveal grid md:grid-cols-2 gap-6 md:gap-16 items-center">
           <div class="order-2 md:order-1 md:text-right">
-            <p class="heading-serif text-terracota text-xl mb-1">Otoño de 2024</p>
-            <h3 class="text-2xl md:text-3xl text-tinta mb-3">La pregunta, en el lugar de siempre</h3>
+            <p class="serif-sc text-terracota-dark text-xs mb-2">Espécimen III · Otoño de 2024</p>
+            <h3 class="text-2xl md:text-3xl text-tinta italic mb-3">La pregunta, en el lugar de siempre</h3>
             <p class="prose-measure md:ml-auto text-tinta/85 leading-relaxed">Álvaro lo preparó todo en secreto durante semanas. Un atardecer cualquiera, en el mirador donde tantas veces habíamos visto caer el sol, apareció el anillo. Lucía dice que ya lo sospechaba; Álvaro jura que no se le notó nada.</p>
           </div>
-          <div class="order-1 md:order-2">
-            <img src="img/timeline-3.webp" loading="lazy" alt="Manos entrelazadas con anillo, proyectando la sombra de la pareja sobre el césped" class="rounded-organic w-full h-64 md:h-72 object-cover shadow-sm">
+          <div class="order-1 md:order-2 specimen">
+            <div class="specimen-frame">
+              <img src="img/timeline-3.webp" loading="lazy" alt="Manos entrelazadas con anillo, proyectando la sombra de la pareja sobre el césped" class="w-full h-64 md:h-72 object-cover">
+            </div>
           </div>
         </div>
       </div>
@@ -266,23 +331,27 @@
   </div>
 </section>
 
-<section id="boda" class="py-20 md:py-28 px-6 md:px-10 bg-white/40">
+<section id="boda" class="py-20 md:py-28 px-6 md:px-10 bg-crema paper-grain">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-14 md:mb-20 reveal">
-      <h2 class="text-4xl md:text-5xl text-tinta">La boda</h2>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Plano de campo</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">La boda</h2>
       <p class="prose-measure mx-auto text-tinta/80 mt-4">Ceremonia y celebración tendrán lugar en el mismo recinto, un espacio al aire libre pensado para disfrutar del campo hasta que caiga la noche.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 md:gap-10">
-      <div class="reveal bg-crema rounded-2xl p-7 md:p-9 card-hover">
-        <span class="inline-flex items-center gap-2 text-salvia-dark heading-serif text-lg mb-3">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          17:00h
-        </span>
-        <h3 class="text-3xl text-tinta mb-3">Ceremonia — El Olivar</h3>
+      <div class="reveal bg-papel border hairline p-7 md:p-9 card-hover">
+        <div class="flex items-center justify-between mb-5">
+          <span class="inline-flex items-center gap-2 text-salvia-dark serif-sc text-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            17:00h
+          </span>
+          <span class="serif-sc text-[10px] text-tinta/40">N.º 01</span>
+        </div>
+        <h3 class="text-3xl text-tinta italic mb-3">Ceremonia — El Olivar</h3>
         <p class="text-tinta/85 leading-relaxed mb-4">Entre olivos centenarios, con la luz dorada del atardecer de invierno como testigo, nos daremos el «sí quiero» al aire libre, rodeados de quienes más queremos.</p>
-        <p class="text-sm text-tinta/70 mb-5">Finca Los Almendros · Ctra. A-374 km 12, 29400 Ronda (Málaga)</p>
-        <div class="rounded-xl overflow-hidden mb-5 aspect-[4/3]">
+        <p class="text-sm text-tinta/65 mb-5 border-t hairline pt-4">Finca Los Almendros · Ctra. A-374 km 12, 29400 Ronda (Málaga)</p>
+        <div class="overflow-hidden mb-5 aspect-[4/3] border hairline">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12764.958!2d-5.1660!3d36.7360!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ0JzA5LjYiTiA1wrAwOSc1OC4wIlc!5e0!3m2!1ses!2ses!4v1700000000000" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ubicación aproximada de Finca Los Almendros, Ronda"></iframe>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Ronda+Malaga+Ctra+A-374" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-terracota-dark font-semibold link-underline focus-ring rounded">
@@ -291,15 +360,18 @@
         </a>
       </div>
 
-      <div class="reveal bg-crema rounded-2xl p-7 md:p-9 card-hover">
-        <span class="inline-flex items-center gap-2 text-terracota-dark heading-serif text-lg mb-3">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          18:30h
-        </span>
-        <h3 class="text-3xl text-tinta mb-3">Celebración — Jardín y carpa</h3>
+      <div class="reveal bg-papel border hairline p-7 md:p-9 card-hover">
+        <div class="flex items-center justify-between mb-5">
+          <span class="inline-flex items-center gap-2 text-terracota-dark serif-sc text-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            18:30h
+          </span>
+          <span class="serif-sc text-[10px] text-tinta/40">N.º 02</span>
+        </div>
+        <h3 class="text-3xl text-tinta italic mb-3">Celebración — Jardín y carpa</h3>
         <p class="text-tinta/85 leading-relaxed mb-4">Al terminar la ceremonia, cóctel junto al jardín mientras cae la noche y después cena y fiesta bajo una carpa de lino con calefacción, entre velas y luz cálida hasta la madrugada.</p>
-        <p class="text-sm text-tinta/70 mb-5">Finca Los Almendros · Ctra. A-374 km 12, 29400 Ronda (Málaga)</p>
-        <div class="rounded-xl overflow-hidden mb-5 aspect-[4/3]">
+        <p class="text-sm text-tinta/65 mb-5 border-t hairline pt-4">Finca Los Almendros · Ctra. A-374 km 12, 29400 Ronda (Málaga)</p>
+        <div class="overflow-hidden mb-5 aspect-[4/3] border hairline">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12764.958!2d-5.1660!3d36.7360!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ0JzA5LjYiTiA1wrAwOSc1OC4wIlc!5e0!3m2!1ses!2ses!4v1700000000001" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ubicación aproximada de Finca Los Almendros, Ronda"></iframe>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Ronda+Malaga+Ctra+A-374" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-terracota-dark font-semibold link-underline focus-ring rounded">
@@ -311,95 +383,97 @@
   </div>
 </section>
 
-<section id="galeria" class="py-20 md:py-28 px-6 md:px-10 bg-crema">
+<section id="galeria" class="py-20 md:py-28 px-6 md:px-10 bg-papel paper-grain">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12 md:mb-16 reveal">
-      <h2 class="text-4xl md:text-5xl text-tinta">Galería</h2>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Lámina de herbario</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">Galería</h2>
       <p class="prose-measure mx-auto text-tinta/80 mt-4">Algunos momentos e instantes que nos representan, a la espera de llenarla con los del día de la boda.</p>
     </div>
 
     <div class="hidden md:grid grid-cols-4 gap-4 reveal" id="gallery-grid">
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring row-span-2" data-idx="0">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring row-span-2 border hairline" data-idx="0">
         <img src="img/gallery-1.webp" loading="lazy" alt="Pradera dorada al atardecer con flores silvestres, paisaje de campo abierto" class="w-full h-full object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="1">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="1">
         <img src="img/gallery-2.webp" loading="lazy" alt="Ramo de novia boho en tonos melocotón y burdeos sostenido en la mano" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="2">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="2">
         <img src="img/gallery-3.webp" loading="lazy" alt="Zapatos de novia y novio uno junto al otro sobre tarima de madera" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="3">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="3">
         <img src="img/gallery-4.webp" loading="lazy" alt="Flores silvestres amarillas bajo el cielo azul" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="4">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="4">
         <img src="img/gallery-5.webp" loading="lazy" alt="Mesa de boda decorada con velas y vajilla rústica al atardecer" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring row-span-2" data-idx="5">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring row-span-2 border hairline" data-idx="5">
         <img src="img/gallery-6.webp" loading="lazy" alt="Dos sillas de ceremonia decoradas con flores frente a un lago" class="w-full h-full object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="6">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="6">
         <img src="img/gallery-7.webp" loading="lazy" alt="Alianzas de boda de oro sobre un mantel de lino con flores secas" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="7">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="7">
         <img src="img/gallery-8.webp" loading="lazy" alt="Pareja a contraluz envuelta en luz dorada de atardecer, sin rostros visibles" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="8">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="8">
         <img src="img/gallery-9.webp" loading="lazy" alt="Detalle de manos entrelazadas con anillos sobre un ramo de rosas melocotón" class="w-full h-48 object-cover">
       </button>
-      <button type="button" class="gallery-item card-hover overflow-hidden rounded-xl focus-ring" data-idx="9">
+      <button type="button" class="gallery-item card-hover overflow-hidden focus-ring border hairline" data-idx="9">
         <img src="img/gallery-10.webp" loading="lazy" alt="Mesa de dulces rústica con tartas y velas contra una pared de ladrillo" class="w-full h-48 object-cover">
       </button>
     </div>
 
     <div class="md:hidden swiper gallery-swiper reveal" role="region" aria-label="Galería de fotos, deslizable">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="0"><img src="img/gallery-1.webp" loading="lazy" alt="Pradera dorada al atardecer con flores silvestres, paisaje de campo abierto" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="1"><img src="img/gallery-2.webp" loading="lazy" alt="Ramo de novia boho en tonos melocotón y burdeos sostenido en la mano" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="2"><img src="img/gallery-3.webp" loading="lazy" alt="Zapatos de novia y novio uno junto al otro sobre tarima de madera" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="3"><img src="img/gallery-4.webp" loading="lazy" alt="Flores silvestres amarillas bajo el cielo azul" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="4"><img src="img/gallery-5.webp" loading="lazy" alt="Mesa de boda decorada con velas y vajilla rústica al atardecer" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="5"><img src="img/gallery-6.webp" loading="lazy" alt="Dos sillas de ceremonia decoradas con flores frente a un lago" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="6"><img src="img/gallery-7.webp" loading="lazy" alt="Alianzas de boda de oro sobre un mantel de lino con flores secas" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="7"><img src="img/gallery-8.webp" loading="lazy" alt="Pareja a contraluz envuelta en luz dorada de atardecer, sin rostros visibles" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="8"><img src="img/gallery-9.webp" loading="lazy" alt="Detalle de manos entrelazadas con anillos sobre un ramo de rosas melocotón" class="w-full h-72 object-cover rounded-xl"></button></div>
-        <div class="swiper-slide"><button type="button" class="focus-ring rounded-xl block w-full" data-idx="9"><img src="img/gallery-10.webp" loading="lazy" alt="Mesa de dulces rústica con tartas y velas contra una pared de ladrillo" class="w-full h-72 object-cover rounded-xl"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="0"><img src="img/gallery-1.webp" loading="lazy" alt="Pradera dorada al atardecer con flores silvestres, paisaje de campo abierto" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="1"><img src="img/gallery-2.webp" loading="lazy" alt="Ramo de novia boho en tonos melocotón y burdeos sostenido en la mano" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="2"><img src="img/gallery-3.webp" loading="lazy" alt="Zapatos de novia y novio uno junto al otro sobre tarima de madera" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="3"><img src="img/gallery-4.webp" loading="lazy" alt="Flores silvestres amarillas bajo el cielo azul" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="4"><img src="img/gallery-5.webp" loading="lazy" alt="Mesa de boda decorada con velas y vajilla rústica al atardecer" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="5"><img src="img/gallery-6.webp" loading="lazy" alt="Dos sillas de ceremonia decoradas con flores frente a un lago" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="6"><img src="img/gallery-7.webp" loading="lazy" alt="Alianzas de boda de oro sobre un mantel de lino con flores secas" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="7"><img src="img/gallery-8.webp" loading="lazy" alt="Pareja a contraluz envuelta en luz dorada de atardecer, sin rostros visibles" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="8"><img src="img/gallery-9.webp" loading="lazy" alt="Detalle de manos entrelazadas con anillos sobre un ramo de rosas melocotón" class="w-full h-72 object-cover"></button></div>
+        <div class="swiper-slide"><button type="button" class="focus-ring block w-full border hairline p-1" data-idx="9"><img src="img/gallery-10.webp" loading="lazy" alt="Mesa de dulces rústica con tartas y velas contra una pared de ladrillo" class="w-full h-72 object-cover"></button></div>
       </div>
-      <div class="swiper-pagination mt-4 relative"></div>
+      <div class="swiper-pagination mt-5 relative"></div>
     </div>
   </div>
 </section>
 
 <div id="lightbox" class="lightbox fixed inset-0 z-[60] bg-tinta/95 opacity-0 pointer-events-none flex items-center justify-center px-4" role="dialog" aria-modal="true" aria-label="Visor de imagen ampliada">
   <button id="lightbox-close" type="button" class="absolute top-5 right-5 text-white/90 hover:text-white focus-ring rounded p-2" aria-label="Cerrar visor">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
   </button>
   <button id="lightbox-prev" type="button" class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-white focus-ring rounded p-2" aria-label="Imagen anterior">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="15 18 9 12 15 6"/></svg>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
-  <img id="lightbox-img" src="" alt="" class="max-h-[82vh] max-w-[88vw] object-contain rounded-lg">
+  <img id="lightbox-img" src="" alt="" class="max-h-[82vh] max-w-[88vw] object-contain border border-crema/30">
   <button id="lightbox-next" type="button" class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-white focus-ring rounded p-2" aria-label="Imagen siguiente">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
   <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-crema/85 text-sm max-w-lg text-center px-4"></p>
 </div>
 
-<section id="invitados" class="py-20 md:py-28 px-6 md:px-10 bg-white/40">
+<section id="invitados" class="py-20 md:py-28 px-6 md:px-10 bg-crema paper-grain">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-14 md:mb-20 reveal">
-      <h2 class="text-4xl md:text-5xl text-tinta">Información para invitados</h2>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Notas de campo</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">Información para invitados</h2>
       <p class="prose-measure mx-auto text-tinta/80 mt-4">Todo lo que necesitas saber para llegar, quedarte y vestirte para un día de campo al atardecer.</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-      <div class="reveal bg-crema rounded-2xl p-7 card-hover">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-salvia-dark mb-4"><path d="M3 13l2-6a2 2 0 012-1h10a2 2 0 012 1l2 6"/><path d="M3 13h18v5a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-5z"/><circle cx="7" cy="16" r="1"/><circle cx="17" cy="16" r="1"/></svg>
-        <h3 class="text-2xl text-tinta mb-2">Transporte</h3>
+      <div class="reveal bg-papel border hairline p-7 card-hover">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="text-salvia-dark mb-4"><path d="M3 13l2-6a2 2 0 012-1h10a2 2 0 012 1l2 6"/><path d="M3 13h18v5a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-5z"/><circle cx="7" cy="16" r="1"/><circle cx="17" cy="16" r="1"/></svg>
+        <h3 class="text-2xl text-tinta italic mb-2">Transporte</h3>
         <p class="text-tinta/85 leading-relaxed text-sm">Ceremonia y celebración son en el mismo recinto, así que no hará falta desplazarte durante el día. La finca dispone de aparcamiento propio gratuito. Si venís de fuera de Ronda, os animamos a compartir coche — dejaremos un grupo de coordinación más adelante.</p>
       </div>
 
-      <div class="reveal bg-crema rounded-2xl p-7 card-hover">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-salvia-dark mb-4"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg>
-        <h3 class="text-2xl text-tinta mb-2">Alojamiento</h3>
+      <div class="reveal bg-papel border hairline p-7 card-hover">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="text-salvia-dark mb-4"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg>
+        <h3 class="text-2xl text-tinta italic mb-2">Alojamiento</h3>
         <ul class="text-tinta/85 leading-relaxed text-sm space-y-3">
           <li><strong class="text-tinta">Cortijo El Encinar</strong> — a 8 min de la finca · desde 75€/noche</li>
           <li><strong class="text-tinta">Posada Sierra Blanca</strong> — a 12 min · desde 60€/noche</li>
@@ -407,23 +481,24 @@
         </ul>
       </div>
 
-      <div class="reveal bg-crema rounded-2xl p-7 card-hover">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-salvia-dark mb-4"><path d="M8 3l4 3 4-3 3 4-2 3v10a1 1 0 01-1 1H6a1 1 0 01-1-1V10L3 7l3-4z"/></svg>
-        <h3 class="text-2xl text-tinta mb-2">Código de vestimenta</h3>
+      <div class="reveal bg-papel border hairline p-7 card-hover">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="text-salvia-dark mb-4"><path d="M8 3l4 3 4-3 3 4-2 3v10a1 1 0 01-1 1H6a1 1 0 01-1-1V10L3 7l3-4z"/></svg>
+        <h3 class="text-2xl text-tinta italic mb-2">Código de vestimenta</h3>
         <p class="text-tinta/85 leading-relaxed text-sm">Boda de campo al atardecer: etiqueta informal elegante. Colores tierra y tonos cálidos son bienvenidos — evitad el blanco, que es para Lucía. El suelo es de césped y tierra, así que os recomendamos calzado cómodo (tacones finos no son buena idea).</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="regalo" class="py-20 md:py-28 px-6 md:px-10 bg-crema">
+<section id="regalo" class="py-20 md:py-28 px-6 md:px-10 bg-papel paper-grain">
   <div class="max-w-2xl mx-auto text-center reveal">
-    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-rosaempolvado-dark mx-auto mb-5"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18"/><path d="M12 8v13"/><path d="M12 8C9 8 7.5 6.5 7.5 5A2.5 2.5 0 0112 5a2.5 2.5 0 014.5 0C16.5 6.5 15 8 12 8z"/></svg>
-    <h2 class="text-4xl md:text-5xl text-tinta mb-5">Mesa de regalos</h2>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="text-terracota-dark mx-auto mb-5"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18"/><path d="M12 8v13"/><path d="M12 8C9 8 7.5 6.5 7.5 5A2.5 2.5 0 0112 5a2.5 2.5 0 014.5 0C16.5 6.5 15 8 12 8z"/></svg>
+    <p class="serif-sc text-terracota-dark text-xs mb-3">Un pequeño detalle</p>
+    <h2 class="text-4xl md:text-5xl text-tinta italic font-medium mb-5">Mesa de regalos</h2>
     <p class="text-tinta/85 leading-relaxed mb-8">Vuestra presencia el 12 de diciembre ya es el mejor regalo que podemos pedir. Si aun así queréis tener un detalle con nosotros, y preferís ayudarnos a construir nuestro hogar, dejamos aquí un número de cuenta para quien quiera hacer una aportación — sin ningún tipo de compromiso.</p>
 
-    <div class="bg-white/70 rounded-2xl p-6 mb-8 inline-block">
-      <p class="text-xs uppercase tracking-widest text-tinta/60 mb-1">IBAN de ejemplo (placeholder — no es una cuenta real)</p>
+    <div class="bg-crema border hairline p-6 mb-8 inline-block">
+      <p class="text-xs uppercase tracking-widest text-tinta/55 mb-1">IBAN de ejemplo (placeholder — no es una cuenta real)</p>
       <p class="heading-serif text-xl text-tinta tracking-wide">ES00 0000 0000 0000 0000 0000</p>
     </div>
 
@@ -436,22 +511,23 @@
   </div>
 </section>
 
-<section id="rsvp" class="py-20 md:py-28 px-6 md:px-10 bg-white/40">
+<section id="rsvp" class="py-20 md:py-28 px-6 md:px-10 bg-crema paper-grain">
   <div class="max-w-2xl mx-auto">
     <div class="text-center mb-10 reveal">
-      <h2 class="text-4xl md:text-5xl text-tinta">Confirmar asistencia</h2>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Ficha de asistencia</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">Confirmar asistencia</h2>
       <p class="prose-measure mx-auto text-tinta/80 mt-4">Nos haría muchísima ilusión contar con vosotros. Confirmad antes del <strong class="text-terracota-dark">15 de octubre de 2027</strong> para que podamos organizarlo todo con calma.</p>
     </div>
 
-    <form id="rsvp-form" action="https://formsubmit.co/demo@luciayalvaro-boda.example" method="POST" class="reveal bg-crema rounded-2xl p-7 md:p-10 space-y-5" novalidate>
+    <form id="rsvp-form" action="https://formsubmit.co/demo@luciayalvaro-boda.example" method="POST" class="reveal bg-papel border hairline p-7 md:p-10 space-y-5" novalidate>
       <input type="hidden" name="_subject" value="Nueva confirmación de asistencia — Lucía & Álvaro">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
 
       <div>
         <label for="rsvp-nombre" class="block text-sm font-semibold text-tinta mb-1.5">Nombre completo *</label>
-        <input type="text" id="rsvp-nombre" name="Nombre completo" required class="w-full rounded-lg border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Tu nombre y apellidos">
-        <p class="error-msg hidden text-xs text-red-600 mt-1"></p>
+        <input type="text" id="rsvp-nombre" name="Nombre completo" required class="w-full border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Tu nombre y apellidos">
+        <p class="error-msg hidden text-xs text-red-700 mt-1"></p>
       </div>
 
       <fieldset>
@@ -460,12 +536,12 @@
           <label class="flex items-center gap-2 text-tinta"><input type="radio" name="Asistencia" value="Sí, allí estaré" required class="accent-terracota w-4 h-4"> Sí, allí estaré</label>
           <label class="flex items-center gap-2 text-tinta"><input type="radio" name="Asistencia" value="No podré ir" required class="accent-terracota w-4 h-4"> No podré ir</label>
         </div>
-        <p class="error-msg hidden text-xs text-red-600 mt-1"></p>
+        <p class="error-msg hidden text-xs text-red-700 mt-1"></p>
       </fieldset>
 
       <div>
         <label for="rsvp-acompanantes" class="block text-sm font-semibold text-tinta mb-1.5">Número de acompañantes</label>
-        <select id="rsvp-acompanantes" name="Acompañantes" class="w-full rounded-lg border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota">
+        <select id="rsvp-acompanantes" name="Acompañantes" class="w-full border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota">
           <option value="0">Solo yo</option>
           <option value="1">+1 acompañante</option>
           <option value="2">+2 acompañantes</option>
@@ -476,99 +552,100 @@
 
       <div>
         <label for="rsvp-alergias" class="block text-sm font-semibold text-tinta mb-1.5">Restricciones alimentarias o alergias</label>
-        <input type="text" id="rsvp-alergias" name="Alergias" class="w-full rounded-lg border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Celiaquía, vegetariano, alergia a frutos secos...">
+        <input type="text" id="rsvp-alergias" name="Alergias" class="w-full border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Celiaquía, vegetariano, alergia a frutos secos...">
       </div>
 
       <div>
         <label for="rsvp-cancion" class="block text-sm font-semibold text-tinta mb-1.5">Una canción que no puede faltar en la fiesta</label>
-        <input type="text" id="rsvp-cancion" name="Canción" class="w-full rounded-lg border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Título y artista">
+        <input type="text" id="rsvp-cancion" name="Canción" class="w-full border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota" placeholder="Título y artista">
       </div>
 
       <div>
         <label for="rsvp-mensaje" class="block text-sm font-semibold text-tinta mb-1.5">Un mensaje para los novios</label>
-        <textarea id="rsvp-mensaje" name="Mensaje" rows="4" class="w-full rounded-lg border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota resize-none" placeholder="Lo que queráis contarnos..."></textarea>
+        <textarea id="rsvp-mensaje" name="Mensaje" rows="4" class="w-full border border-terracota/25 px-4 py-3 text-tinta focus-ring focus:border-terracota resize-none" placeholder="Lo que queráis contarnos..."></textarea>
       </div>
 
-      <button type="submit" class="w-full bg-terracota-dark btn-hover btn-press text-white font-sans font-semibold text-base py-4 rounded-full transition-colors duration-200 focus-ring min-h-[44px]">
+      <button type="submit" class="w-full bg-terracota-dark btn-hover btn-press text-papel font-sans font-semibold text-base py-4 transition-colors duration-200 focus-ring min-h-[44px]">
         Enviar confirmación
       </button>
     </form>
 
-    <div id="rsvp-success" class="hidden reveal bg-salvia/15 border border-salvia/30 rounded-2xl p-8 text-center">
-      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-salvia-dark mx-auto mb-4"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
-      <h3 class="text-2xl text-tinta mb-2">¡Gracias por confirmar!</h3>
+    <div id="rsvp-success" class="hidden reveal bg-salvia/10 border border-salvia/30 p-8 text-center">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-salvia-dark mx-auto mb-4"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+      <h3 class="text-2xl text-tinta italic mb-2">¡Gracias por confirmar!</h3>
       <p class="text-tinta/85">Hemos recibido tu respuesta con muchísima ilusión. Nos vemos el 12 de diciembre de 2027.</p>
     </div>
   </div>
 </section>
 
-<section id="faq" class="py-20 md:py-28 px-6 md:px-10 bg-crema">
+<section id="faq" class="py-20 md:py-28 px-6 md:px-10 bg-papel paper-grain">
   <div class="max-w-3xl mx-auto">
     <div class="text-center mb-14 reveal">
-      <h2 class="text-4xl md:text-5xl text-tinta">Preguntas frecuentes</h2>
+      <p class="serif-sc text-terracota-dark text-xs mb-3">Índice</p>
+      <h2 class="text-4xl md:text-5xl text-tinta italic font-medium">Preguntas frecuentes</h2>
     </div>
 
     <div class="reveal space-y-3" id="faq-list">
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Podemos llevar niños?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Podemos llevar niños?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">Por supuesto. Nos encanta que los más pequeños celebren con nosotros. Habrá un espacio pensado para ellos durante la celebración.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Hay menú para alergias o intolerancias?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Hay menú para alergias o intolerancias?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">Sí, contamos con opciones vegetarianas, veganas y sin gluten. Indícanoslo en el formulario de confirmación para prepararlo todo sin sorpresas.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Cuál es el código de vestimenta?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Cuál es el código de vestimenta?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">Etiqueta informal elegante, en tonos tierra o cálidos. Recordad que la ceremonia y la celebración son sobre césped, así que el calzado cómodo se agradece.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Dónde aparco?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Dónde aparco?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">La finca dispone de aparcamiento propio y gratuito para todos los invitados, a apenas unos pasos de la entrada.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Qué pasa si llueve?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Qué pasa si llueve?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">La carpa de la celebración está preparada para cubrirnos en caso de lluvia. La ceremonia tiene un plan alternativo bajo techo en la misma finca, por si acaso.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Hasta qué hora dura la fiesta?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Hasta qué hora dura la fiesta?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">La música seguirá hasta bien entrada la madrugada. No hay hora fija de cierre — la fiesta durará mientras haya ganas de bailar.</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Podemos hacer fotos durante la ceremonia?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Podemos hacer fotos durante la ceremonia?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">Os pedimos que durante la ceremonia guardéis los móviles y disfrutéis del momento — tenemos fotógrafo profesional. Después, ¡cámaras libres el resto del día!</p></div></div>
       </div>
 
-      <div class="faq-item bg-white/60 rounded-xl overflow-hidden">
+      <div class="faq-item bg-crema/60 border hairline overflow-hidden">
         <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring" aria-expanded="false">
-          <span class="heading-serif text-xl text-tinta">¿Hay guardarropa?</span>
-          <svg class="faq-icon shrink-0" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="heading-serif text-xl text-tinta italic">¿Hay guardarropa?</span>
+          <svg class="faq-icon shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-panel"><div><p class="px-6 pb-5 text-tinta/80 leading-relaxed">Sí, habrá un servicio de guardarropa a la entrada de la carpa donde podréis dejar chaquetas y bolsos durante la fiesta.</p></div></div>
       </div>
@@ -576,32 +653,32 @@
   </div>
 </section>
 
-<section id="musica" class="py-16 md:py-20 px-6 md:px-10 bg-white/40">
+<section id="musica" class="py-16 md:py-20 px-6 md:px-10 bg-crema paper-grain">
   <div class="max-w-xl mx-auto text-center reveal">
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="text-salvia-dark mx-auto mb-4"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    <h2 class="text-3xl md:text-4xl text-tinta mb-3">Construyamos la playlist juntos</h2>
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="text-salvia-dark mx-auto mb-4"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <h2 class="text-3xl md:text-4xl text-tinta italic font-medium mb-3">Construyamos la playlist juntos</h2>
     <p class="text-tinta/80 leading-relaxed mb-6">Queremos que la música de la fiesta también sea vuestra. Añadid vuestras canciones favoritas a nuestra lista colaborativa de Spotify.</p>
-    <a href="#" class="inline-flex items-center gap-2 bg-salvia btn-press text-white font-semibold px-6 py-3 rounded-full transition-transform focus-ring" aria-label="Abrir playlist colaborativa en Spotify (enlace de ejemplo)">
+    <a href="#" class="inline-flex items-center gap-2 bg-salvia btn-hover-salvia btn-press text-papel font-semibold px-6 py-3 transition-colors focus-ring" aria-label="Abrir playlist colaborativa en Spotify (enlace de ejemplo)">
       Abrir en Spotify
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
     </a>
   </div>
 </section>
 
-<section id="contacto" class="py-16 md:py-20 px-6 md:px-10 bg-crema">
+<section id="contacto" class="py-16 md:py-20 px-6 md:px-10 bg-papel paper-grain">
   <div class="max-w-xl mx-auto text-center reveal">
-    <h2 class="text-3xl md:text-4xl text-tinta mb-6">¿Dudas? Escribidnos</h2>
+    <h2 class="text-3xl md:text-4xl text-tinta italic font-medium mb-6">¿Dudas? Escribidnos</h2>
     <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-      <a href="tel:+34600000004" class="inline-flex items-center justify-center gap-2 bg-white/70 hover:bg-white rounded-full px-6 py-3 text-tinta font-semibold transition-colors focus-ring min-h-[44px]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:+34600000004" class="inline-flex items-center justify-center gap-2 bg-crema hover:bg-crema-dark border hairline px-6 py-3 text-tinta font-semibold transition-colors focus-ring min-h-[44px]">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
         Lucía · 600 00 00 04
       </a>
-      <a href="tel:+34600000005" class="inline-flex items-center justify-center gap-2 bg-white/70 hover:bg-white rounded-full px-6 py-3 text-tinta font-semibold transition-colors focus-ring min-h-[44px]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:+34600000005" class="inline-flex items-center justify-center gap-2 bg-crema hover:bg-crema-dark border hairline px-6 py-3 text-tinta font-semibold transition-colors focus-ring min-h-[44px]">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
         Álvaro · 600 00 00 05
       </a>
     </div>
-    <p class="script text-3xl text-terracota-dark">#LuciaYAlvaro2027</p>
+    <p class="heading-serif italic text-2xl text-terracota-dark tracking-wide">#LuciaYAlvaro2027</p>
   </div>
 </section>
 
@@ -609,7 +686,11 @@
 
 <footer class="bg-tinta text-crema/80 py-14 px-6 md:px-10">
   <div class="max-w-4xl mx-auto text-center">
-    <p class="script text-4xl text-white mb-3">L &amp; A</p>
+    <p class="serif-sc text-2xl text-white mb-3">L &amp; A</p>
+    <svg width="40" height="14" viewBox="0 0 52 16" fill="none" class="mx-auto mb-6 text-crema/40" aria-hidden="true">
+      <path d="M26 15C26 15 12 10 12 4C12 1.5 15.5 0.5 17.5 3C19 5 17.5 8 14.5 9" stroke="currentColor" stroke-width="1"/>
+      <path d="M26 15C26 15 40 10 40 4C40 1.5 36.5 0.5 34.5 3C33 5 34.5 8 37.5 9" stroke="currentColor" stroke-width="1"/>
+    </svg>
     <p class="text-crema/70 mb-8 max-w-md mx-auto">Gracias por formar parte de nuestra historia y por acompañarnos en este nuevo capítulo.</p>
 
     <ul class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm mb-8">
@@ -622,14 +703,13 @@
       <li><a href="#rsvp" class="link-underline focus-ring rounded">Confirmar asistencia</a></li>
     </ul>
 
-    <p class="text-xs text-crema/50 border-t border-crema/15 pt-6">Diseño y desarrollo — NGS · Portfolio de webs de invitación</p>
+    <p class="text-xs text-crema/65 border-t border-crema/15 pt-6">Diseño y desarrollo — NGS · Portfolio de webs de invitación</p>
   </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/14.2.0/swiper-bundle.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
 
 <script defer>
 document.addEventListener('DOMContentLoaded', function () {
@@ -780,10 +860,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
-  }
-
   var rsvpForm = document.getElementById('rsvp-form');
   var rsvpSuccess = document.getElementById('rsvp-success');
 
@@ -849,9 +925,7 @@ document.addEventListener('DOMContentLoaded', function () {
       gsap.to(el, {
         opacity: 1,
         y: 0,
-        scale: 1,
-        rotate: 0,
-        duration: 0.65,
+        duration: 0.6,
         ease: 'power2.out',
         scrollTrigger: {
           trigger: el,
